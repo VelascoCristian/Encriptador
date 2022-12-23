@@ -1,39 +1,44 @@
-function encrypt() {
-    var text = document.getElementById("input").value.toLowerCase();
-    text = removeAccents(text);
-    text = text.replace(/e/gm, "enter");
-    text = text.replace(/i/gm, "imes");
-    text = text.replace(/a/gm, "ai");
-    text = text.replace(/o/gm, "ober");
-    text = text.replace(/u/gm, "ufat");
-    document.getElementById("output").value = text;
-    document.getElementById("img-munheco").style.display = "none";
-    document.getElementById("no-input").style.display = "none";
-    document.getElementById("btn-copy").style.display = "show";
-    document.getElementById("btn-copy").style.display = "inherit";
+const encrypt = () => {
+    let result = document.querySelector(".input").value;
+    result = result.toLowerCase();
+    result = result.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+    result = result.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    result = result.replace(/e/gm, "enter");
+    result = result.replace(/i/gm, "imes");
+    result = result.replace(/a/gm, "ai");
+    result = result.replace(/o/gm, "ober");
+    result = result.replace(/u/gm, "ufat");
+    
+    document.querySelector(".munheco").style.setProperty("display","none");
+    document.querySelector(".outputIndication").style.setProperty("display","none");
+    document.querySelector(".output").innerHTML = result;
+    document.querySelector(".output").style.setProperty("margin-top","2vh");
+    document.querySelector(".output").style.setProperty("height","80%");
+    document.querySelector(".output").style.setProperty("text-align","left");
+    document.querySelector(".copy").style.setProperty("display","block");
 }
 
-function decrypt() {
-    var text = document.getElementById("input").value;
-    text = text.replace(/enter/gm, "e");
-    text = text.replace(/imes/gm, "i");
-    text = text.replace(/ai/gm, "a");
-    text = text.replace(/ober/gm, "o");
-    text = text.replace(/ufat/gm, "u");
-    document.getElementById("output").value = text;
-    document.getElementById("img-munheco").style.display = "none";
-    document.getElementById("no-input").style.display = "none";
-    document.getElementById("btn-copy").style.display = "show";
-    document.getElementById("btn-copy").style.display = "inherit";
+const copy = () => {
+    let result = document.querySelector(".output").innerHTML;
+    navigator.clipboard.writeText(result);
 }
 
-function copyText() {
-    var text = document.getElementById("output");
-    text.select();
-    document.execCommand("copy");
-}
+const decrypt = () => {
+    let result = document.querySelector(".input").value;
+    result = result.toLowerCase();
+    result = result.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+    result = result.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    result = result.replace(/enter/gm, "e");
+    result = result.replace(/imes/gm, "i");
+    result = result.replace(/ai/gm, "a");
+    result = result.replace(/ober/gm, "o");
+    result = result.replace(/ufat/gm, "u");
 
-function removeAccents(text){
-	const wordStress = {'á':'a','é':'e','í':'i','ó':'o','ú':'u','Á':'A','É':'E','Í':'I','Ó':'O','Ú':'U','ñ':'n'};
-	return text.split('').map( character => wordStress[character] || character).join('').toString();	
+    document.querySelector(".munheco").style.setProperty("display","none");
+    document.querySelector(".outputIndication").style.setProperty("display","none");
+    document.querySelector(".output").innerHTML = result;
+    document.querySelector(".output").style.setProperty("margin-top","2vh");
+    document.querySelector(".output").style.setProperty("height","80%");
+    document.querySelector(".output").style.setProperty("text-align","left");
+    document.querySelector(".copy").style.setProperty("display","block");
 }
